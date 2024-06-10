@@ -10,11 +10,11 @@ export default async function setupLanterman(program: Command, lanterman: Lanter
 
 	await lanterman.buffer.addStream({
 		name: () => 'latest',
-	}, {prefix: slugify(program.name())}, env.COMMANDEER_LOG_DIR ?? '/tmp');
+	}, {prefix: slugify(program.name())}, env.COMMANDEER_LOG_DIR);
 
 	await lanterman.buffer.addStream({
 		name: () => dateToDateTimeString(new Date()),
-	}, {prefix: slugify(program.name())}, env.COMMANDEER_LOG_DIR ?? '/tmp');
+	}, {prefix: slugify(program.name())}, env.COMMANDEER_LOG_DIR);
 
 	return program;
 }
