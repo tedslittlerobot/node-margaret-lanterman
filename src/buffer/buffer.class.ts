@@ -1,4 +1,4 @@
-import {generateCompositeLogFileName} from 'src/utils/io.js';
+import {generateCompositeLogFileName, getDefaultLogDirectory} from 'src/utils/io.js';
 import {prepareFileStream, writeToStream} from './file-stream.js';
 import {type BufferStream, type LoggerFileStreamProvider} from './types.js';
 import presets from './presets.js';
@@ -21,10 +21,10 @@ export default class LantermanBuffer {
 		await this.processBufferIntoStreams();
 	}
 
-	async addStream(provider: LoggerFileStreamProvider, filename: {prefix: string; suffix?: string}, directory = '/var/log') {
+	async addStream(provider: LoggerFileStreamProvider, filename: {prefix: string; suffix?: string}, directory?: string) {
 		const file = generateCompositeLogFileName(filename.prefix, provider.name(provider.options), filename.suffix);
 
-		const [path, stream] = prepareFileStream(directory, file);
+		const [path, stream] = prepareFileStream(directory ?? getDefaultLogDirectory(filename.prefix), file);
 
 		this.streams.push({
 			path,
