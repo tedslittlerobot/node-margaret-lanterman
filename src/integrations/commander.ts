@@ -6,7 +6,7 @@ import {renderTitle} from 'src/utils/string.js';
 import {dateToDateTimeString} from 'src/utils/date.js';
 
 export default async function setupLanterman(program: Command, lanterman: Lanterman) {
-	await lanterman.buffer.addToBuffer(renderTitle(program.name(), 120));
+	await lanterman.buffer.addToBuffer(renderTitle(program.name(), 80));
 
 	await lanterman.buffer.addStream({
 		name: () => 'latest',
