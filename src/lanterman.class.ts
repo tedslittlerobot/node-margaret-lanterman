@@ -18,9 +18,11 @@ export default class Lanterman {
 		return response;
 	}
 
-	async write(content: string | any, tag = 'info') {
+	async write<T>(content: T, tag = 'info'): Promise<T> {
 		await (typeof content === 'string'
 			? this.buffer.addToBuffer(renderTaggedLine(tag, content))
 			: this.buffer.addToBuffer(renderTaggedJson(tag, content)));
+
+		return content;
 	}
 }
