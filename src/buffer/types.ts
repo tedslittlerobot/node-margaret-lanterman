@@ -17,5 +17,12 @@ export type LoggerFileStreamProvider<Options = any> = {
 
 export type RetentionPolicy<Options = any> = {
 	match: RegExp;
-	filter(names: string[], options: Options | undefined): string[];
+	keep(names: LogFileNameFragments[], options: Options | undefined): LogFileNameFragments[];
+};
+
+export type LogFileNameFragments = {
+	file: string;
+	prefix: string;
+	main: string;
+	suffix?: string;
 };

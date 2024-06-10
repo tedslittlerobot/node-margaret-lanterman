@@ -9,9 +9,10 @@ const presets: Record<string, LoggerFileStreamProvider> = {
 		name: () => dateToDateTimeString(new Date()),
 		retention: {
 			match: dateTimeRegex,
-			filter(names) {
+			keep(names) {
 				const prefix = dateToDateString(new Date());
-				return names.filter(name => !name.startsWith(prefix));
+
+				return names.filter(({main}) => !main.startsWith(prefix));
 			},
 		},
 	},
