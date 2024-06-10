@@ -6,14 +6,16 @@ export default class Lanterman {
 	public readonly buffer = new LantermanBuffer();
 	private readonly sections = new LantermanSectionRecorder();
 
-	async section(title: string, callback: () => Promise<void>) {
+	async section<T>(title: string, callback: () => Promise<T>): Promise<T> {
 		this.sections.openSection(title);
 
 		await this.buffer.addToBuffer(headingRendererForLevel(this.sections.depth)(`[START ${this.sections.identifier}] ${this.sections.title}`, 120));
-		await callback();
+		const response = await callback();
 		await this.buffer.addToBuffer(headingRendererForLevel(this.sections.depth)(`[FINISH ${this.sections.identifier}] ${this.sections.title}`, 120));
 
 		this.sections.closeSection();
+
+		return response;
 	}
 
 	async write(content: string | any, tag = 'info') {
