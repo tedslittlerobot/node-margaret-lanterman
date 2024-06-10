@@ -1,6 +1,6 @@
 {
   "name": "margaret-lanterman",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A file logging library.",
   "repository": {
     "type": "git",
@@ -45,8 +45,8 @@
   "type": "module",
   "module": "lib/index.js",
   "main": "lib/index.js",
-	"exports": {
-		".": "./lib/index.js",
-		"./lib/integrations/commander": "./lib/integrations/commander.js"
-	}
+  "exports": {
+    ".": "./lib/index.js",
+    "./lib/integrations/commander": "./lib/integrations/commander.js"
+  }
 }
