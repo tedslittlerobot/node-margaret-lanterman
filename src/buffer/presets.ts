@@ -1,7 +1,9 @@
 import {dateTimeRegex, dateToDateString, dateToDateTimeString} from 'src/utils/date.js';
 import {type LoggerFileStreamProvider} from './types.js';
 
-const presets: Record<string, LoggerFileStreamProvider> = {
+export type Preset = 'latest' | 'per-diem';
+
+const presets: Record<Preset, LoggerFileStreamProvider> = {
 	latest: {
 		name: () => 'latest',
 	},
