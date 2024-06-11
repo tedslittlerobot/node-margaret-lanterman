@@ -5,9 +5,6 @@ A file logging library.
 
 Name: Margaret Lanterman - the Log Lady of Twin Peaks.
 
-- [ ] events and subscribers with verbosity
-- [ ] remove eventemitter from sections
-
 # Installation
 
 ```bash
