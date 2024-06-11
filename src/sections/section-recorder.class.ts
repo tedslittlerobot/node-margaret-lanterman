@@ -1,4 +1,3 @@
-import EventEmitter from 'node:events';
 
 type Section = {
 	title: string;
