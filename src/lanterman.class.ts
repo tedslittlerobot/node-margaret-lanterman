@@ -1,9 +1,11 @@
 import LantermanBuffer from './buffer/buffer.class.js';
+import {LantermanFeedback} from './feedback/feedback.class.js';
 import LantermanSectionRecorder from './sections/section-recorder.class.js';
 import {headingRendererForLevel, renderTaggedJson, renderTaggedLine} from './utils/string.js';
 
 export default class Lanterman {
 	public readonly buffer = new LantermanBuffer();
+	public readonly feedback = new LantermanFeedback();
 	private readonly sections = new LantermanSectionRecorder();
 
 	async section<T>(title: string, callback: () => Promise<T>): Promise<T> {
