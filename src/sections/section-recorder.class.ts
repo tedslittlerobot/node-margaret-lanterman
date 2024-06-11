@@ -23,35 +23,19 @@ export default class LantermanSectionRecorder {
 		return sections.at(-1)!.title;
 	}
 
-	/**
-	 * @deprecated
-	 */
-	// eslint-disable-next-line unicorn/prefer-event-target
-	public readonly events = new EventEmitter();
-
 	private readonly _sections: Section[] = [
 		{title: '', index: 0},
 	];
 
 	openSection(title: string) {
-		this.events.emit('section:opening', this);
-
 		this._sections.at(-1)!.index++;
 		this._sections.push({title, index: 0});
-
-		this.events.emit('section:opened', this);
 
 		return this._sections.at(-1);
 	}
 
 	closeSection() {
-		this.events.emit('section:closing', this);
-
-		const removed = this._sections.pop();
-
-		this.events.emit('section:closed', this);
-
-		return removed;
+		return this._sections.pop();
 	}
 
 	get identifier() {
