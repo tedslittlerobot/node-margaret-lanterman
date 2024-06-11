@@ -3,20 +3,20 @@ import stripAnsi from 'strip-ansi';
 type FeedbackHandler = (message: string) => Promise<void> | void;
 
 export class LantermanFeedback {
-	private subscriber: FeedbackHandler | undefined;
+	private _handler: FeedbackHandler | undefined;
 
-	async withFeedback(handler: FeedbackHandler, action: () => Promise<void>) {
-		const previous = this.subscriber;
-		this.subscriber = handler;
+	async withFeedback(feedbackHandler: FeedbackHandler, action: () => Promise<void>) {
+		const previous = this._handler;
+		this._handler = feedbackHandler;
 		await action();
-		this.subscriber = previous;
+		this._handler = previous;
 	}
 
 	async send(message: string) {
-		if (!this.subscriber) {
+		if (!this._handler) {
 			throw new Error(`Attempted to provide feedback with no feedback handler [${stripAnsi(message)}]`);
 		}
 
-		return this.subscriber(message);
+		return this._handler(message);
 	}
 }
