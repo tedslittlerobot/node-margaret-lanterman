@@ -67,3 +67,58 @@ program.name('my-cli-app');
 
 setupCommanderAndLanterman(program, gloucester);
 ```
+
+# Integration with Listr2
+
+If you are using [Listr2](https://github.com/listr2/listr2), there are two helper functions to wrap tasks.
+
+## Wrap Tasks In Sections
+
+This will take a list of tasks, and will wrap each of the tasks inside a `lanterman.section()` call, using the task's title as the section title.
+
+```typescript
+import {Listr, delay} from 'listr2';
+import {wrapListrTasksInSections} from 'margaret-lanterman/lib/integrations/listr.js';
+
+new Listr(wrapListrTasksInSections([
+	{
+		title: 'Task One',
+		async task() {
+			lanterman.write('Some details about task one');
+		}
+	},
+	{
+		title: 'Task Two',
+		async task() {
+			lanterman.write('Some details about task two');
+		}
+	},
+]));
+```
+
+## Wrap Tasks In Feedback
+
+This will take a list of tasks, and will wrap each of the tasks inside a `lanterman.feedback.withFeedback()` call, adding a few features:
+
+- Sets future tasks to gray
+- Sets current tasks to cyan
+- Sets completed tasks to green
+- Appends any calls to feedback `lanterman.feedback.send()` to the title (overwriting any previous ones) - or if using a verbosity level higher than `normal`, puts it on a line below (using `task.output`)
+
+```typescript
+import {Listr, delay} from 'listr2';
+import {wrapListrTasksInFeedback} from 'margaret-lanterman/lib/integrations/listr.js';
+
+new Listr(wrapListrTasksInFeedback([
+	{
+		title: 'Task One',
+		async task() {
+			await delay(1000);
+			lanterman.feedback.send('Doing a thing', 'verbose');
+			await delay(1000);
+			lanterman.feedback.send('Trying somethign else', 'verbose');
+			await delay(1000);
+		}
+	},
+]));
+```
