@@ -18,7 +18,8 @@ export class LantermanFeedback {
 
 	async send(message: string, verbosity: Verbosity = 'normal') {
 		if (!this._handler) {
-			throw new Error(`Attempted to provide feedback with no feedback handler [${stripAnsi(message)}]`);
+			return;
+			// @decision - error or not? throw new Error(`Attempted to provide feedback with no feedback handler [${stripAnsi(message)}]`);
 		}
 
 		return this._handler(message, verbosity);
