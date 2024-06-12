@@ -3,6 +3,12 @@ import chalk, {type ChalkInstance} from 'chalk';
 import gloucester, {type Verbosity} from 'gloucester';
 import lanterman from '../index.js';
 
+export function wrapListrTasks<Context>(tasks: Array<ListrTask<Context>>) {
+	return wrapListrTasksInSections(
+		wrapListrTasksInFeedback(tasks),
+	);
+}
+
 export function wrapListrTasksInSections<Context>(tasks: Array<ListrTask<Context>>) {
 	for (const item of tasks) {
 		let {task, title} = item;

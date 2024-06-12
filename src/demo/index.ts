@@ -2,7 +2,7 @@ import {program} from 'commander';
 import lanterman from 'src/index.js';
 import {Listr, delay} from 'listr2';
 import setupLanterman from 'src/integrations/commander.js';
-import {wrapListrTasksInFeedback, wrapListrTasksInSections} from 'src/integrations/listr.js';
+import {wrapListrTasksInFeedback, wrapListrTasksInSections, wrapListrTasks} from 'src/integrations/listr.js';
 import gloucester from 'gloucester';
 import setupGloucester from 'gloucester/lib/integrations/commander';
 
@@ -26,7 +26,7 @@ program.command('sections')
 
 program.command('listr2')
 	.action(async () => {
-		const listr = new Listr(wrapListrTasksInFeedback(wrapListrTasksInSections([
+		const listr = new Listr(wrapListrTasks(([
 			{
 				title: 'Task One',
 				async task() {

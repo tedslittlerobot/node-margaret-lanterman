@@ -78,7 +78,7 @@ This will take a list of tasks, and will wrap each of the tasks inside a `lanter
 
 ```typescript
 import {Listr, delay} from 'listr2';
-import {wrapListrTasksInSections} from 'margaret-lanterman/lib/integrations/listr.js';
+import {wrapListrTasksInSections} from 'margaret-lanterman/lib/integrations/listr';
 
 new Listr(wrapListrTasksInSections([
 	{
@@ -107,7 +107,7 @@ This will take a list of tasks, and will wrap each of the tasks inside a `lanter
 
 ```typescript
 import {Listr, delay} from 'listr2';
-import {wrapListrTasksInFeedback} from 'margaret-lanterman/lib/integrations/listr.js';
+import {wrapListrTasksInFeedback} from 'margaret-lanterman/lib/integrations/listr';
 
 new Listr(wrapListrTasksInFeedback([
 	{
@@ -121,4 +121,15 @@ new Listr(wrapListrTasksInFeedback([
 		}
 	},
 ]));
+```
+
+## All
+
+If you want to use both of these, there is a `wrapListrTasks` function which will apply both of these.
+
+```typescript
+import {Listr, delay} from 'listr2';
+import {wrapListrTasks} from 'margaret-lanterman/lib/integrations/listr';
+
+new Listr(wrapListrTasks([]));
 ```

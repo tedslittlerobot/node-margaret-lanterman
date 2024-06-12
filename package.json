@@ -50,6 +50,7 @@
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
-    "./lib/integrations/commander": "./lib/integrations/commander.js"
+    "./lib/integrations/commander": "./lib/integrations/commander.js",
+    "./lib/integrations/listr": "./lib/integrations/listr.js"
   }
 }
