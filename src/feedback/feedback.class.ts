@@ -6,11 +6,14 @@ type FeedbackHandler = (message: string, verbosity: Verbosity) => Promise<void> 
 export class LantermanFeedback {
 	private _handler: FeedbackHandler | undefined;
 
-	async withFeedback(feedbackHandler: FeedbackHandler, action: () => Promise<void>) {
+	async withFeedback<T>(feedbackHandler: FeedbackHandler, action: () => Promise<T>): Promise<T> {
 		const previous = this._handler;
+
 		this._handler = feedbackHandler;
-		await action();
+		const result = await action();
 		this._handler = previous;
+
+		return result;
 	}
 
 	async send(message: string, verbosity: Verbosity = 'normal') {
