@@ -77,12 +77,40 @@ export function renderTaggedLine(tag: string, content: string) {
 	return `[${stripAnsi(tag)}] ${stripAnsi(content)}`;
 }
 
-export function renderTaggedJson(tag: string, content: any) {
-	let json = JSON.stringify(content);
-
-	if (json.length > 100) {
-		json = JSON.stringify(content, undefined, 2);
+export function debugVariable(content: any): string {
+	if (typeof content === 'string') {
+		return content;
 	}
 
-	return `[${stripAnsi(tag)}] ${json}`;
+	if (typeof content === 'boolean') {
+		return content ? 'True' : 'False';
+	}
+
+	if (typeof content === 'number') {
+		return `${content}`;
+	}
+
+	if (content === undefined) {
+		return '<undefined>';
+	}
+
+	if (content === null) {
+		return '<null>';
+	}
+
+	if (typeof content === 'object' || Array.isArray(content)) {
+		const json = JSON.stringify(content);
+
+		if (json === undefined) {
+			throw new TypeError('Content cannot be converted to JSON for debugging');
+		}
+
+		if (json.length <= 100) {
+			return json;
+		}
+
+		return JSON.stringify(content, undefined, 2);
+	}
+
+	throw new TypeError(`Variable of type ${typeof content} cannot be converted to a debuggable string`);
 }

@@ -1,7 +1,7 @@
 import LantermanBuffer from './buffer/buffer.class.js';
 import {LantermanFeedback} from './feedback/feedback.class.js';
 import LantermanSectionRecorder from './sections/section-recorder.class.js';
-import {headingRendererForLevel, renderTaggedJson, renderTaggedLine} from './utils/string.js';
+import {debugVariable, headingRendererForLevel, renderTaggedLine} from './utils/string.js';
 
 export default class Lanterman {
 	public readonly buffer = new LantermanBuffer();
@@ -21,9 +21,7 @@ export default class Lanterman {
 	}
 
 	async write<T>(content: T, tag = 'info'): Promise<T> {
-		await (typeof content === 'string'
-			? this.buffer.addToBuffer(renderTaggedLine(tag, content))
-			: this.buffer.addToBuffer(renderTaggedJson(tag, content)));
+		await this.buffer.addToBuffer(renderTaggedLine(tag, debugVariable(content)));
 
 		return content;
 	}
