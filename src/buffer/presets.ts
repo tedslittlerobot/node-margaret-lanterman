@@ -14,7 +14,7 @@ const presets: Record<Preset, LoggerFileStreamProvider> = {
 			keep(names) {
 				const prefix = dateToDateString(new Date());
 
-				return names.filter(({main}) => !main.startsWith(prefix));
+				return names.filter(({main}) => main.startsWith(prefix));
 			},
 		},
 	},
